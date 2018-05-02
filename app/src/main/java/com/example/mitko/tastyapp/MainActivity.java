@@ -7,6 +7,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.widget.TextView;
 
+/**
+ * This is the starting screen for the TastyApp
+ */
+
 public class MainActivity extends AppCompatActivity {
 
     private TextView mTextMessage;
@@ -31,6 +35,15 @@ public class MainActivity extends AppCompatActivity {
         }
     };
 
+
+    /**
+     *
+     *
+     * @param resID
+     */
+    private void setText(int resID){
+        mTextMessage.setText(resID);
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
