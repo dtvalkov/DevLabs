@@ -12,27 +12,50 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import com.bumptech.glide.Glide;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 
 class MealAdapter extends RecyclerView.Adapter<MealAdapter.ViewHolder> {
     private Meal[] mDataset;
+
+
+
+
 
     // Provide a reference to the views for each data item
     // Complex data items may need more than one view per item, and
     // you provide access to all the views for a data item in a view holder
     public static class ViewHolder extends RecyclerView.ViewHolder {
         // each data item is a Meal in this case
-        public ImageView imageView;
-        public TextView textView;
+      //  public ImageView imageView;
+        //public TextView textView;
+
+
+        /*
+        *
+        *  butterknife binding
+         */
+        @BindView(R.id.imageView1) ImageView imageView;
+        @BindView(R.id.title_textview) TextView textView;
+
+
+
 
         public ViewHolder(View view) {
             super(view);
-            imageView = view.findViewById(R.id.imageView1);
-            textView = view.findViewById(R.id.title_textview);
+            ButterKnife.bind(view);
+            ButterKnife.setDebug(true);
+
+            // imageView = view.findViewById(R.id.imageView1);
+           // textView = view.findViewById(R.id.title_textview);
         }
     }
 
     // Provide a suitable constructor (depends on the kind of dataset)
     public MealAdapter(Meal[] myDataset) {
+
+
         mDataset = myDataset;
     }
 
@@ -40,6 +63,7 @@ class MealAdapter extends RecyclerView.Adapter<MealAdapter.ViewHolder> {
     @Override
     public MealAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         // create a new view
+
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.meal_item, parent, false);
         return new ViewHolder(view);

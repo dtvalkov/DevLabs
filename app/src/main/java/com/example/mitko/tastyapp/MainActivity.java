@@ -6,6 +6,7 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -13,14 +14,26 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 /**
  * This is the starting screen for the TastyApp
  */
 
 public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
 
-    private TextView mTextMessage;
+    /*
+    *
+    * Butterknife binding
+    * */
+ //   @BindView(R.id.message) TextView mTextMessage;
+   //@BindView(R.id.navigation_home) BottomNavigationView navigation;
+    @BindView(R.id.swiperefresh_layout) SwipeRefreshLayout swipeRefreshLayout;
+    @BindView(R.id.recycler_view) RecyclerView mRecyclerView;
 
+
+TextView mTextMessage; BottomNavigationView navigation;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -53,12 +66,17 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         setContentView(R.layout.activity_main);
         setupRecyclerView();
         setupSwipeRefresh();
+        navigation = findViewById(R.id.navigation_dashboard);
+        mTextMessage = findViewById(R.id.message);
+        ButterKnife.bind(this);
+        ButterKnife.setDebug(true);
 
-      /*  super.onCreate(savedInstanceState);
+
+        /*  super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        mTextMessage = findViewById(R.id.message);
-        BottomNavigationView navigation = findViewById(R.id.navigation);
+        //mTextMessage = findViewById(R.id.message);
+        //BottomNavigationView navigation = findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(this);
 
 
@@ -90,7 +108,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 
 
     private void setupSwipeRefresh() {
-        SwipeRefreshLayout swipeRefreshLayout = findViewById(R.id.swiperefresh_layout);
+       SwipeRefreshLayout swipeRefreshLayout = findViewById(R.id.swiperefresh_layout);
         swipeRefreshLayout.setOnRefreshListener(() -> {
             Handler mHandler = new Handler();//In UI Thread
             mHandler.postDelayed(() -> swipeRefreshLayout.setRefreshing(false), 500);
@@ -101,11 +119,11 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 
 
     private void setupRecyclerView() {
-        RecyclerView mRecyclerView = findViewById(R.id.recycler_view);
+      RecyclerView mRecyclerView = findViewById(R.id.recycler_view);
         // Use this setting to improve performance if you know that changes
         // in content do not change the layout size of the RecyclerView
-          mRecyclerView.setHasFixedSize(true);         // Use a linear layout manager
-          RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(this);
+         mRecyclerView.setHasFixedSize(true);         // Use a linear layout manager
+          RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(this, 2);
          mRecyclerView.setLayoutManager(mLayoutManager);
         // Create 5 mock meals
         Meal[] meals = new Meal[5];
