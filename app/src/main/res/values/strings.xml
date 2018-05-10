@@ -3,4 +3,6 @@
     <string name="navigation_latest">Latest</string>
     <string name="navigation_random">Random</string>
     <string name="navigation_favorites">Favorites</string>
+    <string name="cuisine">Cuisine</string>
+
 </resources>
