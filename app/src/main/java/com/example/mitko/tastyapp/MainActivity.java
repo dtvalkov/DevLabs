@@ -3,6 +3,7 @@ package com.example.mitko.tastyapp;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -27,13 +28,13 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
     *
     * Butterknife binding
     * */
- //   @BindView(R.id.message) TextView mTextMessage;
-   //@BindView(R.id.navigation_home) BottomNavigationView navigation;
+   @Nullable @BindView(R.id.message) TextView mTextMessage;
+   @Nullable @BindView(R.id.navigation_home) BottomNavigationView navigation;
     @BindView(R.id.swiperefresh_layout) SwipeRefreshLayout swipeRefreshLayout;
     @BindView(R.id.recycler_view) RecyclerView mRecyclerView;
 
 
-TextView mTextMessage; BottomNavigationView navigation;
+//TextView mTextMessage; BottomNavigationView navigation;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {

@@ -4,6 +4,7 @@ package com.example.mitko.tastyapp;
  * Created by Mitko on 10.5.2018 г..
  */
 
+import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -36,8 +37,9 @@ class MealAdapter extends RecyclerView.Adapter<MealAdapter.ViewHolder> {
         *
         *  butterknife binding
          */
-        @BindView(R.id.imageView1) ImageView imageView;
-        @BindView(R.id.title_textview) TextView textView;
+      @Nullable
+      @BindView(R.id.imageView1) ImageView imageView;
+      @Nullable  @BindView(R.id.title_textview) TextView textView;
 
 
 
