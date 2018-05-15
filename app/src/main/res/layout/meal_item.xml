@@ -6,6 +6,8 @@
     android:shadowDx="10"
     android:shadowDy="10"
     android:shadowRadius="100"
+    android:elevation="5dp"
+    android:background="@drawable/border"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
     

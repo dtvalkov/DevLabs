@@ -15,6 +15,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -28,8 +29,10 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
     *
     * Butterknife binding
     * */
-   @Nullable @BindView(R.id.message) TextView mTextMessage;
-   @Nullable @BindView(R.id.navigation_home) BottomNavigationView navigation;
+   @Nullable @BindView(R.id.message)
+   private TextView mTextMessage;
+   @Nullable @BindView(R.id.navigation_home)
+   private BottomNavigationView navigation;
     @BindView(R.id.swiperefresh_layout) SwipeRefreshLayout swipeRefreshLayout;
     @BindView(R.id.recycler_view) RecyclerView mRecyclerView;
 
@@ -132,7 +135,10 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         for (int i = 0; i < 5; i++) {
             meals[i] = new Meal();         }         // Specify an adapter
           RecyclerView.Adapter mAdapter = new MealAdapter(meals);
-        mRecyclerView.setAdapter(mAdapter);     }
+        mRecyclerView.setAdapter(mAdapter);
+
+        mRecyclerView.addItemDecoration(new SpacesItemDecoration(2,50, true));
+    }
 
 
 

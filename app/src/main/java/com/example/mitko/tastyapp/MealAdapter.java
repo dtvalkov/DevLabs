@@ -46,7 +46,7 @@ class MealAdapter extends RecyclerView.Adapter<MealAdapter.ViewHolder> {
 
         public ViewHolder(View view) {
             super(view);
-            ButterKnife.bind(view);
+            ButterKnife.bind(this, view);
             ButterKnife.setDebug(true);
 
             // imageView = view.findViewById(R.id.imageView1);
@@ -80,7 +80,7 @@ class MealAdapter extends RecyclerView.Adapter<MealAdapter.ViewHolder> {
         holder.textView.setText(meal.getTitle());
         ImageView imageView = holder.imageView;
         Glide.with(imageView.getContext()).load(meal.getImgUrl()).into(imageView);
-
+        imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);//stretching the image
     }
 
     // Return the size of your dataset (invoked by the layout manager)

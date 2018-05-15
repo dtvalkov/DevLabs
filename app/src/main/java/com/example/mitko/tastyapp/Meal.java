@@ -4,7 +4,7 @@ package com.example.mitko.tastyapp;
  * Created by Mitko on 10.5.2018 г..
  */
 
-public class Meal {
+class Meal {
 
     String title;
     String imgUrl;

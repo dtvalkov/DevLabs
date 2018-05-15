@@ -21,8 +21,7 @@
         android:layout_marginTop="16dp"
         android:text="@string/cuisine"
         android:textAllCaps="true"
-        android:textColor="@color/black"
-        android:textStyle="bold"
+        style="@style/ContentText"
 
         />
 
@@ -34,6 +33,38 @@
         android:layout_marginTop="8dp"
         android:textColor="@color/colorPrimaryDark"
         tools:text="American"/>
+
+
+    <TextView
+        android:id="@+id/instructions_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        style="@style/ContentText"
+        tools:text="INSTRUCTIONS"/>
+
+    <TextView
+        android:id="@+id/fulltext_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:textColor="@color/black"
+
+       />
+
+
+
+    <TextView
+        android:id="@+id/hyperlink_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:textColor="@color/colorPrimaryDark"
+        android:textStyle="bold"
+        tools:text="VIEW ORIGINAL RECIPE"/>
 
 
 </LinearLayout>
