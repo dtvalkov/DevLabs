@@ -5,14 +5,11 @@ import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.BottomNavigationView;
-import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.TextView;
 
 
@@ -31,10 +28,9 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
     * */
    @Nullable @BindView(R.id.message)
    public TextView mTextMessage;
-   @Nullable @BindView(R.id.navigation_home)
+   @Nullable @BindView(R.id.navigation)
    public BottomNavigationView navigation;
-    @BindView(R.id.swiperefresh_layout) SwipeRefreshLayout swipeRefreshLayout;
-    @BindView(R.id.recycler_view) RecyclerView mRecyclerView;
+
 
 
 //TextView mTextMessage; BottomNavigationView navigation;
@@ -69,11 +65,11 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        navigation = findViewById(R.id.navigation_dashboard);
-        mTextMessage = findViewById(R.id.message);
+
         ButterKnife.bind(this);
         ButterKnife.setDebug(true);
 
+        showFragment(LatestFragment.newInstance());
 
         /*  super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
@@ -93,24 +89,31 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-/*
+
         switch (item.getItemId()) {
             case R.id.navigation_home:
-                mTextMessage.setText(R.string.navigation_latest);
-                return true;
+                showFragment(LatestFragment.newInstance());
+                 return true;
+
             case R.id.navigation_dashboard:
-                mTextMessage.setText(R.string.navigation_random);
+                showFragment(LatestFragment.newInstance());
                 return true;
+
             case R.id.navigation_notifications:
-                mTextMessage.setText(R.string.navigation_favorites);
+                showFragment(LatestFragment.newInstance());
                 return true;
         }
-*/
+
         return false;
     }
 
 
-
+    private void showFragment(Fragment fragment) {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction transaction = fragmentManager.beginTransaction();
+        transaction.replace(R.id.frame_layout, fragment);
+        transaction.commit();
+    }
 
 
 
