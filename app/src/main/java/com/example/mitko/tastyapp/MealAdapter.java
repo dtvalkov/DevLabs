@@ -4,12 +4,15 @@ package com.example.mitko.tastyapp;
  * Created by Mitko on 10.5.2018 г..
  */
 
+import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import com.bumptech.glide.Glide;
 
@@ -40,6 +43,8 @@ class MealAdapter extends RecyclerView.Adapter<MealAdapter.ViewHolder> {
       @Nullable
       @BindView(R.id.imageView1) ImageView imageView;
       @Nullable  @BindView(R.id.title_textview) TextView textView;
+      @BindView(R.id.container) LinearLayout container;
+
 
 
 
@@ -79,8 +84,14 @@ class MealAdapter extends RecyclerView.Adapter<MealAdapter.ViewHolder> {
         Meal meal = mDataset[position];
         holder.textView.setText(meal.getTitle());
         ImageView imageView = holder.imageView;
-        Glide.with(imageView.getContext()).load(meal.getImgUrl()).into(imageView);
+        final Context context = imageView.getContext();
+        Glide.with(context).load(meal.getImgUrl()).into(imageView);
         imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);//stretching the image
+
+        holder.container.setOnClickListener(v -> {
+            openMealActivity(context, meal);
+        });
+
     }
 
     // Return the size of your dataset (invoked by the layout manager)
@@ -88,4 +99,14 @@ class MealAdapter extends RecyclerView.Adapter<MealAdapter.ViewHolder> {
     public int getItemCount() {
         return mDataset.length;
     }
+
+    private void openMealActivity(Context context, Meal meal) {
+        Intent intent = new Intent(context, MealActivity.class);
+        intent.putExtra("bg.devlabs.androidacademy.title", meal.getTitle());
+        intent.putExtra("bg.devlabs.androidacademy.imageUrl", meal.getImgUrl());
+
+        context.startActivity(intent);
+    }
+
+
 }

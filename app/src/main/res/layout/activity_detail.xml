@@ -32,7 +32,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
         android:textColor="@color/colorPrimaryDark"
-        tools:text="American"/>
+        android:text="American"/>
 
 
     <TextView
@@ -42,7 +42,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
         style="@style/ContentText"
-        tools:text="INSTRUCTIONS"/>
+        android:text="INSTRUCTIONS"/>
 
     <TextView
         android:id="@+id/fulltext_text_view"
@@ -64,7 +64,7 @@
         android:layout_marginTop="8dp"
         android:textColor="@color/colorPrimaryDark"
         android:textStyle="bold"
-        tools:text="VIEW ORIGINAL RECIPE"/>
+        android:text="VIEW ORIGINAL RECIPE"/>
 
 
 </LinearLayout>

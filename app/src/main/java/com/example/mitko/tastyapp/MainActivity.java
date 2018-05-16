@@ -30,9 +30,9 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
     * Butterknife binding
     * */
    @Nullable @BindView(R.id.message)
-   private TextView mTextMessage;
+   public TextView mTextMessage;
    @Nullable @BindView(R.id.navigation_home)
-   private BottomNavigationView navigation;
+   public BottomNavigationView navigation;
     @BindView(R.id.swiperefresh_layout) SwipeRefreshLayout swipeRefreshLayout;
     @BindView(R.id.recycler_view) RecyclerView mRecyclerView;
 
