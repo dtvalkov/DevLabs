@@ -4,6 +4,9 @@
     <string name="navigation_random">Random</string>
     <string name="navigation_favorites">Favorites</string>
     <string name="cuisine">Cuisine</string>
+    <string name="view_original_recipe">VIEW ORIGINAL RECIPE</string>
+    <string name="instructions">INSTRUCTIONS</string>
+    <string name="ingredients">INGREDIENTS</string>
 
 
 </resources>

@@ -1,4 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:fillViewport="true">
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
@@ -34,15 +38,17 @@
         android:textColor="@color/colorPrimaryDark"
         android:text="American"/>
 
-
     <TextView
-        android:id="@+id/instructions_text_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+
         android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="16dp"
+        android:text="@string/ingredients"
+        android:textAllCaps="true"
         style="@style/ContentText"
-        android:text="INSTRUCTIONS"/>
+
+        />
 
     <TextView
         android:id="@+id/fulltext_text_view"
@@ -55,6 +61,14 @@
        />
 
 
+    <TextView
+        android:id="@+id/instructions_text_view"
+        style="@style/ContentText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:text="@string/instructions" />
 
     <TextView
         android:id="@+id/hyperlink_text_view"
@@ -64,7 +78,10 @@
         android:layout_marginTop="8dp"
         android:textColor="@color/colorPrimaryDark"
         android:textStyle="bold"
-        android:text="VIEW ORIGINAL RECIPE"/>
+        android:linksClickable="true"
+        android:autoLink="web"
+        android:text="@string/view_original_recipe"/>
 
 
 </LinearLayout>
+</ScrollView>

@@ -89,7 +89,7 @@ class MealAdapter extends RecyclerView.Adapter<MealAdapter.ViewHolder> {
         imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);//stretching the image
 
         holder.container.setOnClickListener(v -> {
-            openMealActivity(context, meal);
+            MealActivity.start(context, meal);
         });
 
     }
@@ -100,13 +100,6 @@ class MealAdapter extends RecyclerView.Adapter<MealAdapter.ViewHolder> {
         return mDataset.length;
     }
 
-    private void openMealActivity(Context context, Meal meal) {
-        Intent intent = new Intent(context, MealActivity.class);
-        intent.putExtra("bg.devlabs.androidacademy.title", meal.getTitle());
-        intent.putExtra("bg.devlabs.androidacademy.imageUrl", meal.getImgUrl());
-
-        context.startActivity(intent);
-    }
 
 
 }
