@@ -68,8 +68,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        setupRecyclerView();
-        setupSwipeRefresh();
+
         navigation = findViewById(R.id.navigation_dashboard);
         mTextMessage = findViewById(R.id.message);
         ButterKnife.bind(this);
@@ -111,34 +110,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
     }
 
 
-    private void setupSwipeRefresh() {
-       SwipeRefreshLayout swipeRefreshLayout = findViewById(R.id.swiperefresh_layout);
-        swipeRefreshLayout.setOnRefreshListener(() -> {
-            Handler mHandler = new Handler();//In UI Thread
-            mHandler.postDelayed(() -> swipeRefreshLayout.setRefreshing(false), 500);
-        });
-    }
 
-
-
-
-    private void setupRecyclerView() {
-      RecyclerView mRecyclerView = findViewById(R.id.recycler_view);
-        // Use this setting to improve performance if you know that changes
-        // in content do not change the layout size of the RecyclerView
-         mRecyclerView.setHasFixedSize(true);         // Use a linear layout manager
-          RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(this, 2);
-         mRecyclerView.setLayoutManager(mLayoutManager);
-        // Create 5 mock meals
-        Meal[] meals = new Meal[5];
-
-        for (int i = 0; i < 5; i++) {
-            meals[i] = new Meal();         }         // Specify an adapter
-          RecyclerView.Adapter mAdapter = new MealAdapter(meals);
-        mRecyclerView.setAdapter(mAdapter);
-
-        mRecyclerView.addItemDecoration(new SpacesItemDecoration(2,50, true));
-    }
 
 
 
