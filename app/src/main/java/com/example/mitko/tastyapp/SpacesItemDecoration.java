@@ -8,6 +8,7 @@ import android.view.View;
  * Created by Mitko on 15.5.2018 г..
  */
 
+@SuppressWarnings("DefaultFileTemplate")
 class SpacesItemDecoration extends RecyclerView.ItemDecoration {
 
     private int spanCount;

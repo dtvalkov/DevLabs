@@ -36,18 +36,8 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 
 
 
-//TextView mTextMessage; BottomNavigationView navigation;
-
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
-            = new BottomNavigationView.OnNavigationItemSelectedListener() {
-
-
-        @Override
-        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-
-            return false;
-        }
-    };
+            = item -> false;
 
 
     /**
@@ -100,7 +90,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                  return true;
 
             case R.id.navigation_dashboard:
-
+               // Toast.makeText(MainActivity.this, "2nd", Toast.LENGTH_LONG).show();
                 showFragment(RandomFragment.newInstance());
                 return true;
 
@@ -108,6 +98,8 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 
                 showFragment(FavoritesFragment.newInstance());
                 return true;
+
+           // default:  Toast.makeText(MainActivity.this, "Test", Toast.LENGTH_LONG).show();
         }
 
         return false;

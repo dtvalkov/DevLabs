@@ -10,6 +10,7 @@ import android.support.v7.widget.RecyclerView;
  * Created by Mitko on 17.5.2018 г..
  */
 
+@SuppressWarnings("DefaultFileTemplate")
 public class AppFragments extends android.support.v4.app.Fragment { // базов клас за фрагментите в приложението
 
 
