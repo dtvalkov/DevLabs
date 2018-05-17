@@ -11,7 +11,10 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.widget.TextView;
+import android.widget.Toast;
 
+
+import java.util.Random;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -74,11 +77,11 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         /*  super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //mTextMessage = findViewById(R.id.message);
-        //BottomNavigationView navigation = findViewById(R.id.navigation);
+        //mTextMessage = findViewById(R.id.message); */
+        BottomNavigationView navigation = findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(this);
 
-
+/*
         mTextMessage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -92,15 +95,18 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 
         switch (item.getItemId()) {
             case R.id.navigation_home:
+
                 showFragment(LatestFragment.newInstance());
                  return true;
 
             case R.id.navigation_dashboard:
-                showFragment(LatestFragment.newInstance());
+
+                showFragment(RandomFragment.newInstance());
                 return true;
 
             case R.id.navigation_notifications:
-                showFragment(LatestFragment.newInstance());
+
+                showFragment(FavoritesFragment.newInstance());
                 return true;
         }
 
@@ -109,10 +115,13 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 
 
     private void showFragment(Fragment fragment) {
+
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction transaction = fragmentManager.beginTransaction();
         transaction.replace(R.id.frame_layout, fragment);
+        transaction.addToBackStack(null);
         transaction.commit();
+
     }
 
 

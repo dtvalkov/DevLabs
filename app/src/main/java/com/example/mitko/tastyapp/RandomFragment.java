@@ -16,14 +16,14 @@ import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
 
-public class LatestFragment extends AppFragments {
+public class RandomFragment extends AppFragments {
     @BindView(R.id.recycler_view)
     RecyclerView mRecyclerView;
     @BindView(R.id.swipe_refresh)
     SwipeRefreshLayout swipeRefreshLayout;
     Unbinder unbinder;
 
-    public LatestFragment() {
+    public RandomFragment() {
         // Required empty public constructor
     }
 
@@ -49,10 +49,10 @@ public class LatestFragment extends AppFragments {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_latest, container, false);
+        View view = inflater.inflate(R.layout.fragment_random, container, false);
         unbinder = ButterKnife.bind(this, view);
 
-        setupRecyclerView(mRecyclerView,8);
+        setupRecyclerView(mRecyclerView, 6);
         setupSwipeRefresh(swipeRefreshLayout);
 
 
@@ -64,6 +64,7 @@ public class LatestFragment extends AppFragments {
         super.onDestroyView();
         unbinder.unbind();
     }
+
 
 
 
