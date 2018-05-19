@@ -51,33 +51,4 @@ public class AppFragments extends android.support.v4.app.Fragment { // базо�
 
 
 
-    public static  android.support.v4.app.Fragment getFragmentByTagName(FragmentManager fragmentManager, String fragmentTagName)//функция за търсене на фрагмент по зададен таг
-    { //използва се при повторно извикване на вече създаден фрагмент
-        android.support.v4.app.Fragment  ret = null;
-
-        // Get all Fragment list.
-        List<android.support.v4.app.Fragment> fragmentList = fragmentManager.getFragments();
-
-        if(fragmentList!=null)
-        {
-            int size = fragmentList.size();
-            for(int i=0;i<size;i++)
-            {
-               android.support.v4.app.Fragment fragment =  fragmentList.get(i);
-
-                if(fragment!=null) {
-                    String fragmentTag = fragment.getTag();
-
-                    // If Fragment tag name is equal then return it.
-                    if (fragmentTag.equals(fragmentTagName)) {
-                        ret = fragment;
-                    }
-                }
-            }
-        }
-
-        return ret;
-    }
-
-
 }

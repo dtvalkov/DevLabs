@@ -64,20 +64,9 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 
         showFragment(LatestFragment.newInstance());
 
-        /*  super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-
-        //mTextMessage = findViewById(R.id.message); */
         BottomNavigationView navigation = findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(this);
 
-/*
-        mTextMessage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-            }
-        });*/
     }
 
     @Override
