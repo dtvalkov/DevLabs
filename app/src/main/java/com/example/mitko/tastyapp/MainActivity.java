@@ -34,7 +34,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
    @Nullable @BindView(R.id.navigation)
    public BottomNavigationView navigation;
 
-
+     public static Boolean flagLatest, flagRandom, flagFavs = false;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = item -> false;
@@ -83,39 +83,51 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 
+
+        int i;
         switch (item.getItemId()) {
             case R.id.navigation_home:
 
-                showFragment(LatestFragment.newInstance());
+                    showFragment(LatestFragment.newInstance());
                  return true;
 
             case R.id.navigation_dashboard:
-               // Toast.makeText(MainActivity.this, "2nd", Toast.LENGTH_LONG).show();
+
                 showFragment(RandomFragment.newInstance());
+
                 return true;
 
             case R.id.navigation_notifications:
 
+
                 showFragment(FavoritesFragment.newInstance());
+
                 return true;
 
-           // default:  Toast.makeText(MainActivity.this, "Test", Toast.LENGTH_LONG).show();
+
         }
 
         return false;
     }
 
 
-    private void showFragment(Fragment fragment) {
+    private void showFragment(AppFragments fragment) {
+
+        String backStateName = fragment.getClass().getName();
 
         FragmentManager fragmentManager = getSupportFragmentManager();
-        FragmentTransaction transaction = fragmentManager.beginTransaction();
-        transaction.replace(R.id.frame_layout, fragment);
-        transaction.addToBackStack(null);
-        transaction.commit();
+        boolean fragmentPopped = fragmentManager.popBackStackImmediate(backStateName, 0);
+
+
+        if (!fragmentPopped) {
+
+            FragmentTransaction transaction = fragmentManager.beginTransaction();
+            transaction.replace(R.id.frame_layout, fragment);
+            transaction.addToBackStack(backStateName);
+            transaction.commit();
+
+        }
 
     }
-
-
 
     }

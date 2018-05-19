@@ -2,9 +2,12 @@ package com.example.mitko.tastyapp;
 
 import android.app.Fragment;
 import android.os.Handler;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+
+import java.util.List;
 
 /**
  * Created by Mitko on 17.5.2018 г..
@@ -13,6 +16,9 @@ import android.support.v7.widget.RecyclerView;
 @SuppressWarnings("DefaultFileTemplate")
 public class AppFragments extends android.support.v4.app.Fragment { // базов клас за фрагментите в приложението
 
+
+
+  //  public static String getFragTag() {return this.getTag(); }
 
     protected void setupSwipeRefresh(SwipeRefreshLayout srl) {
 
@@ -43,6 +49,35 @@ public class AppFragments extends android.support.v4.app.Fragment { // базо�
         rv.addItemDecoration(new SpacesItemDecoration(2,50, true));
     }
 
+
+
+    public static  android.support.v4.app.Fragment getFragmentByTagName(FragmentManager fragmentManager, String fragmentTagName)//функция за търсене на фрагмент по зададен таг
+    { //използва се при повторно извикване на вече създаден фрагмент
+        android.support.v4.app.Fragment  ret = null;
+
+        // Get all Fragment list.
+        List<android.support.v4.app.Fragment> fragmentList = fragmentManager.getFragments();
+
+        if(fragmentList!=null)
+        {
+            int size = fragmentList.size();
+            for(int i=0;i<size;i++)
+            {
+               android.support.v4.app.Fragment fragment =  fragmentList.get(i);
+
+                if(fragment!=null) {
+                    String fragmentTag = fragment.getTag();
+
+                    // If Fragment tag name is equal then return it.
+                    if (fragmentTag.equals(fragmentTagName)) {
+                        ret = fragment;
+                    }
+                }
+            }
+        }
+
+        return ret;
+    }
 
 
 }
