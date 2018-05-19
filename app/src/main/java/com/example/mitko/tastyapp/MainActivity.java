@@ -14,6 +14,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
+import java.util.List;
 import java.util.Random;
 
 import butterknife.BindView;
@@ -72,51 +73,57 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction transaction = fragmentManager.beginTransaction();
 
-        int i;
         switch (item.getItemId()) {
-            case R.id.navigation_home:
+            case R.id.navigation_latest:
+               checkFrag(fragmentManager, transaction, new LatestFragment());
+                break;
 
-                    showFragment(LatestFragment.newInstance());
-                 return true;
+            case R.id.navigation_random:
+                checkFrag(fragmentManager, transaction, new RandomFragment());
+                break;
 
-            case R.id.navigation_dashboard:
-
-                showFragment(RandomFragment.newInstance());
-
-                return true;
-
-            case R.id.navigation_notifications:
-
-
-                showFragment(FavoritesFragment.newInstance());
-
-                return true;
-
-
+            case R.id.navigation_favorites:
+                checkFrag(fragmentManager, transaction, new FavoritesFragment());
+                break;
         }
-
-        return false;
+        transaction.commit();
+        return true;
     }
+
 
 
     private void showFragment(AppFragments fragment) {
 
-        String backStateName = fragment.getClass().getName();
+        FragmentManager manager = getSupportFragmentManager();
+        FragmentTransaction transaction = manager.beginTransaction();
+        String tag = fragment.getClass().getSimpleName();
+        transaction.add(R.id.frame_layout, fragment, tag);
+        transaction.commit();
 
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        boolean fragmentPopped = fragmentManager.popBackStackImmediate(backStateName, 0);
+
+    }
 
 
-        if (!fragmentPopped) {
+    private static void checkFrag(FragmentManager fragmentManager,
+                                      FragmentTransaction transaction, Fragment fragment) {
 
-            FragmentTransaction transaction = fragmentManager.beginTransaction();
-            transaction.replace(R.id.frame_layout, fragment);
-            transaction.addToBackStack(backStateName);
-            transaction.commit();
+        String tag = fragment.getClass().getSimpleName();
+        Fragment cachedFragment = fragmentManager.findFragmentByTag(tag);
+        List<Fragment> addedFragments = fragmentManager.getFragments();
 
+        for (Fragment tempFragment : addedFragments) {
+            if (tempFragment.isVisible())
+                transaction.hide(tempFragment);
         }
-
+        if (cachedFragment != null) {
+            transaction.show(cachedFragment);
+        } else {
+            transaction.add(R.id.frame_layout, fragment, tag);
+        }
     }
 
-    }
+
+}

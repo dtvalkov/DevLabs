@@ -1,5 +1,10 @@
 package com.example.mitko.tastyapp;
 
+import android.util.Pair;
+
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by Mitko on 10.5.2018 г..
  */
@@ -12,6 +17,7 @@ class Meal {
     String cuisine;
     String instructions;
     String origurl;
+    List<Pair<String, String>> ingredients;
 
     public String getTitle() {
         return "Pancake";
@@ -35,5 +41,15 @@ class Meal {
     public String getCuisine() {return "American"; }
     public String getUrl() {return "https://www.themealdb.com/meal.php?c=52854"; }
 
+
+    public List<Pair<String, String>> getIngredients() {
+        List<Pair<String, String>> ingredients = new ArrayList<>(5);
+        ingredients.add(new Pair<>("100g", "Flour"));
+        ingredients.add(new Pair<>("2", "Large Eggs"));
+        ingredients.add(new Pair<>("300ml", "Milk"));
+        ingredients.add(new Pair<>("1tbsp", "Sunflower Oil"));
+        ingredients.add(new Pair<>("to serve", "Sugar"));
+        return ingredients;
+    }
 
 }
