@@ -7,15 +7,20 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Html;
+import android.util.Pair;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.CheckBox;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -33,7 +38,8 @@ public class MealActivity extends AppCompatActivity {
         context.startActivity(intent);
     }
     
-
+    @BindView (R.id.container)
+    LinearLayout container;
     @BindView(R.id.image_detail)
     ImageView imageDetail;
     @BindView(R.id.cuisine_text_view)
@@ -58,6 +64,17 @@ public class MealActivity extends AppCompatActivity {
        hyperlinkTextView.setPaintFlags(hyperlinkTextView.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
     }
 
+    private void fillIngredients() {
+        Meal meal = new Meal();
+        List<Pair<String, String>> ingredients = meal.getIngredients();
+        int size = ingredients.size();
+        for (int i = 0; i < size; i++) {
+            Pair<String, String> pair = ingredients.get(i);
+            CheckBox checkBox = new CheckBox(this);
+            checkBox.setText(String.format("%s %s", pair.first, pair.second));
+            container.addView(checkBox, 3 + i);
+        }
+    }
 
 
     private void fillUiFromIntent() {
@@ -76,6 +93,8 @@ public class MealActivity extends AppCompatActivity {
         cuisineTextView.setText(cuisine);
         fulltextTextView.setText(instructions);
 
+
+        fillIngredients();
 
     }
 
