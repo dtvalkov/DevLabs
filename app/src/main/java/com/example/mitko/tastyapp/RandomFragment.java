@@ -33,8 +33,8 @@ public class RandomFragment extends AppFragments {
      *
      * @return A new instance of fragment LatestFragment.
      */
-    public static LatestFragment newInstance() {
-        return new LatestFragment();
+    public static RandomFragment newInstance() {
+        return new RandomFragment();
     }
 
     @Override

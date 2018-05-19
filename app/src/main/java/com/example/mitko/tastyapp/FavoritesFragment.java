@@ -34,8 +34,8 @@ public class FavoritesFragment extends AppFragments {
      *
      * @return A new instance of fragment LatestFragment.
      */
-    public static LatestFragment newInstance() {
-        return new LatestFragment();
+    public static FavoritesFragment newInstance() {
+        return new FavoritesFragment();
     }
 
     @Override
