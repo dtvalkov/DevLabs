@@ -5,11 +5,22 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
 
 
+
+
     <item
         android:id="@+id/action_back"
         android:icon="@drawable/ic_arrow_back_black_24dp"
         android:title="back"
-        app:showAsAction="always" />
+        android:gravity="left"
+        app:showAsAction="ifRoom"
+        />
+
+    <item
+        android:id="@+id/action_share"
+        android:title="share"
+
+        app:showAsAction="ifRoom"
+        app:actionProviderClass="android.support.v7.widget.ShareActionProvider"/>
 
 
 </menu>

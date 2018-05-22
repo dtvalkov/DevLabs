@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.graphics.Paint;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Html;
 import android.util.Pair;
@@ -17,6 +18,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.support.v7.widget.ShareActionProvider;
 
 import com.bumptech.glide.Glide;
 
@@ -27,6 +29,7 @@ import butterknife.ButterKnife;
 
 public class MealActivity extends AppCompatActivity {
 
+    private static Meal custom_meal = null;
     public static void start(Context context, Meal meal) {//starter pattern
         Intent intent = new Intent(context, MealActivity.class);
         intent.putExtra("title", meal.getTitle());
@@ -35,10 +38,12 @@ public class MealActivity extends AppCompatActivity {
         intent.putExtra("cuisine", meal.getCuisine());
         intent.putExtra("url", meal.getUrl());
 
+        custom_meal = meal;
+
         context.startActivity(intent);
     }
-    
-    @BindView (R.id.container)
+
+    @BindView(R.id.container)
     LinearLayout container;
     @BindView(R.id.image_detail)
     ImageView imageDetail;
@@ -52,6 +57,8 @@ public class MealActivity extends AppCompatActivity {
     TextView hyperlinkTextView;
 
 
+    private ShareActionProvider provider;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,7 +68,7 @@ public class MealActivity extends AppCompatActivity {
         clickText();
 
         cuisineTextView.setPaintFlags(cuisineTextView.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
-       hyperlinkTextView.setPaintFlags(hyperlinkTextView.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
+        hyperlinkTextView.setPaintFlags(hyperlinkTextView.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
     }
 
     private void fillIngredients() {
@@ -99,35 +106,63 @@ public class MealActivity extends AppCompatActivity {
     }
 
 
-    public void clickText()
-    {
+    public void clickText() {
         hyperlinkTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent browser= new Intent(Intent.ACTION_VIEW, Uri.parse(getIntent().getStringExtra("url")));
+                Intent browser = new Intent(Intent.ACTION_VIEW, Uri.parse(getIntent().getStringExtra("url")));
                 startActivity(browser);
             }
         });
     }
 
-
+@Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.toolbar_menu, menu);
+
+        MenuItem item = menu.findItem(R.id.action_share);
+        provider = (android.support.v7.widget.ShareActionProvider) MenuItemCompat.getActionProvider(item);
+
+    provider.setShareIntent(doShare());
         return true;
     }
 
 
+    public Intent doShare()
+    {
+            String send = "";
 
+            if (custom_meal != null)
+        send = "Виж рецепта за " + custom_meal.getTitle() + " на адрес: " + custom_meal.getUrl();
+
+        Intent intent = new Intent(Intent.ACTION_SEND);
+        intent.setType("text/plain");
+        intent.putExtra(Intent.EXTRA_TEXT, send);
+        startActivity(intent);
+
+        return intent;
+    }
+
+    private void setShareIntent(Intent shareIntent) {
+        if (provider != null) {
+            provider.setShareIntent(shareIntent);
+        }
+    }
+@Override
     public boolean onOptionsItemSelected(MenuItem item) {
+
+        super.onOptionsItemSelected(item);
         switch (item.getItemId()) {
 
 
             case R.id.action_back://action - back
-             this.finish();
+                this.finish();
                 return true;
 
+
             default:
+
                 return super.onOptionsItemSelected(item);
         }
     }
