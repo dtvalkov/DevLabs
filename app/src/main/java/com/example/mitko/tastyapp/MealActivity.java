@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.graphics.Paint;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Html;
@@ -29,7 +31,7 @@ import butterknife.ButterKnife;
 
 public class MealActivity extends AppCompatActivity {
 
-    private static Meal custom_meal = null;
+
     public static void start(Context context, Meal meal) {//starter pattern
         Intent intent = new Intent(context, MealActivity.class);
         intent.putExtra("title", meal.getTitle());
@@ -56,8 +58,9 @@ public class MealActivity extends AppCompatActivity {
     @BindView(R.id.hyperlink_text_view)
     TextView hyperlinkTextView;
 
-
+    private static Meal custom_meal = null;
     private ShareActionProvider provider;
+    private static Menu action_menu = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,6 +72,10 @@ public class MealActivity extends AppCompatActivity {
 
         cuisineTextView.setPaintFlags(cuisineTextView.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
         hyperlinkTextView.setPaintFlags(hyperlinkTextView.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
+
+
+        if (custom_meal.getUrl() == null)//премахване на view за хиперлинк, ако такъв не съществува
+            hyperlinkTextView.setVisibility(View.GONE);
     }
 
     private void fillIngredients() {
@@ -125,21 +132,25 @@ public class MealActivity extends AppCompatActivity {
         provider = (android.support.v7.widget.ShareActionProvider) MenuItemCompat.getActionProvider(item);
 
     provider.setShareIntent(doShare());
+
+        action_menu = menu; //инициализираме глобалната променлива action_menu, за да я използваме при промяна на иконките
         return true;
     }
 
 
     public Intent doShare()
     {
-            String send = "";
+            String send = ""; String subj = "";
 
-            if (custom_meal != null)
-        send = "Виж рецепта за " + custom_meal.getTitle() + " на адрес: " + custom_meal.getUrl();
-
+            if (custom_meal != null) {
+                send = "Виж рецепта за " + custom_meal.getTitle() + " на адрес: " + custom_meal.getUrl();
+                subj = custom_meal.getTitle() + " recipe";
+            }
         Intent intent = new Intent(Intent.ACTION_SEND);
         intent.setType("text/plain");
+        intent.putExtra(Intent.EXTRA_SUBJECT,subj);
         intent.putExtra(Intent.EXTRA_TEXT, send);
-        startActivity(intent);
+
 
         return intent;
     }
@@ -160,6 +171,27 @@ public class MealActivity extends AppCompatActivity {
                 this.finish();
                 return true;
 
+
+            case R.id.action_fav:
+
+//               MenuItem favs = (MenuItem) findViewById(R.id.action_fav);
+                Snackbar.make(findViewById(R.id.coordinator_layout), "1 item added", Snackbar.LENGTH_SHORT)
+                        .setAction("UNDO",new View.OnClickListener(){
+
+                                @Override
+                                    public void onClick(View view)
+                                {
+
+                                }
+
+                                })
+                        .show();
+
+               //action_menu.findItem(2).setIcon(ContextCompat.getDrawable(this, R.drawable.ic_favorite_black_24dp));
+
+
+
+                return true;
 
             default:
 
