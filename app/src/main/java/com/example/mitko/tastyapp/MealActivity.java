@@ -61,6 +61,7 @@ public class MealActivity extends AppCompatActivity {
     private static Meal custom_meal = null;
     private ShareActionProvider provider;
     private static Menu action_menu = null;
+    private static Boolean isFav = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -123,7 +124,7 @@ public class MealActivity extends AppCompatActivity {
         });
     }
 
-@Override
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.toolbar_menu, menu);
@@ -131,24 +132,24 @@ public class MealActivity extends AppCompatActivity {
         MenuItem item = menu.findItem(R.id.action_share);
         provider = (android.support.v7.widget.ShareActionProvider) MenuItemCompat.getActionProvider(item);
 
-    provider.setShareIntent(doShare());
+        provider.setShareIntent(doShare());
 
         action_menu = menu; //инициализираме глобалната променлива action_menu, за да я използваме при промяна на иконките
         return true;
     }
 
 
-    public Intent doShare()
-    {
-            String send = ""; String subj = "";
+    public Intent doShare() {
+        String send = "";
+        String subj = "";
 
-            if (custom_meal != null) {
-                send = "Виж рецепта за " + custom_meal.getTitle() + " на адрес: " + custom_meal.getUrl();
-                subj = custom_meal.getTitle() + " recipe";
-            }
+        if (custom_meal != null) {
+            send = "Виж рецепта за " + custom_meal.getTitle() + " на адрес: " + custom_meal.getUrl();
+            subj = custom_meal.getTitle() + " recipe";
+        }
         Intent intent = new Intent(Intent.ACTION_SEND);
         intent.setType("text/plain");
-        intent.putExtra(Intent.EXTRA_SUBJECT,subj);
+        intent.putExtra(Intent.EXTRA_SUBJECT, subj);
         intent.putExtra(Intent.EXTRA_TEXT, send);
 
 
@@ -160,7 +161,8 @@ public class MealActivity extends AppCompatActivity {
             provider.setShareIntent(shareIntent);
         }
     }
-@Override
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
         super.onOptionsItemSelected(item);
@@ -173,23 +175,7 @@ public class MealActivity extends AppCompatActivity {
 
 
             case R.id.action_fav:
-
-//               MenuItem favs = (MenuItem) findViewById(R.id.action_fav);
-                Snackbar.make(findViewById(R.id.coordinator_layout), "1 item added", Snackbar.LENGTH_SHORT)
-                        .setAction("UNDO",new View.OnClickListener(){
-
-                                @Override
-                                    public void onClick(View view)
-                                {
-
-                                }
-
-                                })
-                        .show();
-
-               //action_menu.findItem(2).setIcon(ContextCompat.getDrawable(this, R.drawable.ic_favorite_black_24dp));
-
-
+                addRemoveFavourites();
 
                 return true;
 
@@ -197,6 +183,49 @@ public class MealActivity extends AppCompatActivity {
 
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+
+    public void addRemoveFavourites() { //функция за добавяне и премахване на елемент от любими
+
+
+        MenuItem favItem = action_menu.findItem(R.id.action_fav);
+
+        if (isFav == false) {
+
+            isFav = true;
+            Snackbar.make(findViewById(R.id.coordinator_layout), "1 item added", Snackbar.LENGTH_SHORT)
+                    .setAction("UNDO", new View.OnClickListener() {
+
+                        @Override
+                        public void onClick(View view) {
+                            isFav = false;
+                            favItem.setIcon(getResources().getDrawable(R.drawable.ic_favorite_border_black_24dp));
+                        }
+
+                    })
+                    .show();
+
+            favItem.setIcon(getResources().getDrawable(R.drawable.ic_favorite_black_24dp));
+        } else if (isFav == true) {
+
+            isFav = false;
+            Snackbar.make(findViewById(R.id.coordinator_layout), "1 item removed", Snackbar.LENGTH_SHORT)
+                    .setAction("UNDO", new View.OnClickListener() {
+
+                        @Override
+                        public void onClick(View view) {
+                            isFav = true;
+                            favItem.setIcon(getResources().getDrawable(R.drawable.ic_favorite_black_24dp));
+                        }
+
+                    })
+                    .show();
+
+            favItem.setIcon(getResources().getDrawable(R.drawable.ic_favorite_border_black_24dp));
+        }
+
+
     }
 
 }
